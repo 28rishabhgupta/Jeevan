@@ -3,26 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_120sdp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_80sdp"
-        android:src="@drawable/logo" />
+        android:id="@+id/logo_"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginEnd="@dimen/_90sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:src="@drawable/logo_" />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
+        android:text="JEEVAN"
+        android:textColor="#1DC6EB"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:fontFamily=""
         android:layout_marginTop="@dimen/_20sdp"
-        android:textAlignment="center"
-        android:text="Preserve water,Preserve future"/>
+        android:fontFamily="sans-serif-smallcaps"
+        android:textSize="30sp"
+        android:layout_below="@+id/logo_"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_140sdp"
+        android:background="@drawable/background">
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_200sdp"
+        android:background="@drawable/background2">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_170sdp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:text="Preserve water,Preserve life" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/simsimi_image"
+        android:src="@drawable/chatbot_image"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"/>
+
+    <com.github.library.bubbleview.BubbleTextView
+        android:id="@+id/text_message"
+        android:padding="@dimen/_10sdp"
+        android:textColor="#FFF"
+
+        android:layout_toRightOf="@id/simsimi_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:arrowWidth="@dimen/_8sdp"
+        app:arrowHeight="@dimen/_10sdp"
+        app:angle="@dimen/_8sdp"
+        app:arrowLocation="left"
+        app:arrowCenter="true"
+        app:arrowPosition="@dimen/_14sdp"
+        app:bubbleColor="#7EC0EE"/>
+</RelativeLayout>

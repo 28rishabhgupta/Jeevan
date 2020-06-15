@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/complaint_image_upload_camera"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_190sdp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/gps_image_2"
+                android:background="@color/colorPrimaryDark"/>
+            <Button
+                android:id="@+id/complaint_btn_cam_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_below="@+id/complaint_cam_image"
+                android:text="Upload Image"
+                android:background="@drawable/login_with_google"
+                android:textColor="#101010"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginLeft="@dimen/_50sdp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:src="@drawable/gps_image_3"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Country"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Country"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Country"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="State"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_State"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="State"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="City"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_City"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="City"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Pin"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Pin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Pin"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Address"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Address"
+                    android:textStyle="bold"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="15sp"
+                    android:textColor="#0A0B0B">
+                </TextView>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/currentLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="btn_current_Location"
+                android:background="@drawable/login_with_google"
+                android:text="Current Location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complaint Description"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"/>
+            <EditText
+                android:id="@+id/view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:textCursorDrawable="@drawable/edit_text_complaint_description"
+                android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/complaint_Submit_btn"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/login_with_google"
+                android:text="Submit" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/floatingActionbutton"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_message_black_24dp"
+                    android:elevation="@dimen/_10sdp"
+                    >
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            </RelativeLayout>
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/login_with_google"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:text="Log out" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/icon_color_state_bottom_navbar"
+        app:itemTextColor="@drawable/icon_color_state_bottom_navbar"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_items"/>
+
+
+</RelativeLayout>
+

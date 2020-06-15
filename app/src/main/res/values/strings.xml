@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Jeevan</string>
+    <string name="Signup"><u>Already have an Account?</u></string>
+    <string name="LoginCreateAccount"><u>Create an Account?</u></string>
+    <string name="LoginForgotpassword"><u>Forgot Password?</u></string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="simsimi_api">XibOmcp_WbBAPmBAyxsPVd9ef0mjCInEvxgrWT_4</string>
 </resources>
