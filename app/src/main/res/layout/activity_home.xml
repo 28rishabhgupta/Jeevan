@@ -16,10 +16,9 @@
                 android:id="@+id/complaint_image_upload_camera"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_190sdp"
-                android:scaleType="fitCenter"
+                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
-                android:src="@drawable/gps_image_2"
-                android:background="@color/colorPrimaryDark"/>
+                android:src="@drawable/water_wastage_image"/>
             <Button
                 android:id="@+id/complaint_btn_cam_upload"
                 android:layout_width="match_parent"
@@ -29,167 +28,16 @@
                 android:text="Upload Image"
                 android:background="@drawable/login_with_google"
                 android:textColor="#101010"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_50sdp"
                 android:layout_marginLeft="@dimen/_50sdp"/>
-            <LinearLayout
+            <ImageView
+                android:id="@+id/complaint_imageview_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_170sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:src="@drawable/gps_image_3"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Country"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_Country"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Country"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="State"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_State"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="State"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="City"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_City"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="City"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Pin"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_Pin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Pin"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Address"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_Address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Address"
-                    android:textStyle="bold"
-                    android:fontFamily="serif-monospace"
-                    android:textSize="15sp"
-                    android:textColor="#0A0B0B">
-                </TextView>
-
-            </LinearLayout>
+                android:layout_height="@dimen/_190sdp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:src="@drawable/gps_image_3"/>
 
             <Button
                 android:id="@+id/currentLocation"
@@ -198,11 +46,27 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_marginRight="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_gravity="center_horizontal"
                 android:onClick="btn_current_Location"
                 android:background="@drawable/login_with_google"
                 android:text="Current Location" />
+
+            <Button
+                android:id="@+id/currentLocation_Retrieve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="btn_current_Retrieve_Location"
+                android:background="@drawable/login_with_google"
+                android:text="Current Location" />
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"

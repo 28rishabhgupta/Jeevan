@@ -59,18 +59,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-public class Home extends AppCompatActivity implements LocationListener {
+public class Home extends AppCompatActivity  {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
+
+    Button complaint_btn_cam_upload;
     Button logoutButton,currentLocation;
     FloatingActionButton floatingActionButton;
 
     String currentPhotoPath;
     StorageReference storageReference;
     TextView tv_Country, tv_State, tv_City, tv_Pin, tv_Address;
-    LocationManager locationManager;
-
-    Button complaint_btn_cam_upload;
+    // LocationManager locationManager;
     ImageView complaint_image_upload_camera;
 
 
@@ -79,14 +79,14 @@ public class Home extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //grant permission for location methiod...
-        grantPermission();
+        //grant permission for location method...
+       // grantPermission();
 
-        tv_Country = findViewById(R.id.tv_Country);
-        tv_City = findViewById(R.id.tv_City);
-        tv_State = findViewById(R.id.tv_State);
-        tv_Pin = findViewById(R.id.tv_Pin);
-        tv_Address = findViewById(R.id.tv_Address);
+      // tv_Country = findViewById(R.id.tv_Country);
+        //tv_City = findViewById(R.id.tv_City);
+       // tv_State = findViewById(R.id.tv_State);
+        //tv_Pin = findViewById(R.id.tv_Pin);
+        //tv_Address = findViewById(R.id.tv_Address);
         floatingActionButton = findViewById(R.id.floatingActionbutton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,19 +96,19 @@ public class Home extends AppCompatActivity implements LocationListener {
         });
         //Location enabled or not..
         //checkLocationIsEnabledOrNot();
-        getLocation();
+       // getLocation();
         complaint_btn_cam_upload = findViewById(R.id.complaint_btn_cam_upload);
-        currentLocation = findViewById(R.id.currentLocation);
+       // currentLocation = findViewById(R.id.currentLocation);
         complaint_image_upload_camera = findViewById(R.id.complaint_image_upload_camera);
         //Firebase Storage reference...
         storageReference = FirebaseStorage.getInstance().getReference();
-        currentLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLocation();
-                checkLocationIsEnabledOrNot();
-            }
-        });
+       // currentLocation.setOnClickListener(new View.OnClickListener() {
+           // @Override
+          //  public void onClick(View v) {
+          //      getLocation();
+          //      checkLocationIsEnabledOrNot();
+          //  }
+       // });
         complaint_btn_cam_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,10 +131,10 @@ public class Home extends AppCompatActivity implements LocationListener {
     }
 
 
-    private void getLocation() {
-        try {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    //private void getLocation() {
+      //  try {
+         //   locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+         //   if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -142,52 +142,52 @@ public class Home extends AppCompatActivity implements LocationListener {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 5,(LocationListener)this);
-        }catch (SecurityException e){
-            e.printStackTrace();
+             //   return;
+           // }
+         //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 5,(LocationListener)this);
+       // }catch (SecurityException e){
+         //   e.printStackTrace();
 
-        }
-    }
+       /// }
+   // }
 
-    private void checkLocationIsEnabledOrNot() {
+   // private void checkLocationIsEnabledOrNot() {
         //this method will redirect us to Location Settingd..
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean gpsEnabled = false;
-        boolean networkEnabled = false;
-        try{
-            gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        try{
-            networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        if(!gpsEnabled && !networkEnabled){
-            new AlertDialog.Builder(Home.this)
-                    .setTitle("Enable Gps Service")
-                    .setCancelable(false)
-                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        }
-                    }).setNegativeButton("Cancel",null)
-                    .show();
-        }
-    }
+       // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+      //  boolean gpsEnabled = false;
+      //  boolean networkEnabled = false;
+       // try{
+      //      gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+       // }catch (Exception e){
+       //     e.printStackTrace();
+     //   }
+      //  try{
+      //      networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+      //  }catch (Exception e){
+        //    e.printStackTrace();
+       // }
+      //  if(!gpsEnabled && !networkEnabled){
+        //    new AlertDialog.Builder(Home.this)
+              //      .setTitle("Enable Gps Service")
+                   // .setCancelable(false)
+                  //  .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                   //     @Override
+                   //     public void onClick(DialogInterface dialog, int which) {
+                       //     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                     //   }
+                  //  }).setNegativeButton("Cancel",null)
+                 //   .show();
+     //   }
+  //  }
 
-    private void grantPermission() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION},100);
-        }
-    }
+  //  private void grantPermission() {
+      //  if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+          //  && ActivityCompat.checkSelfPermission(getApplicationContext(),
+            //    Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+          //  ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+          //  Manifest.permission.ACCESS_COARSE_LOCATION},100);
+      ///  }
+  //  }
 
     private void askCameraPermission() {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
@@ -220,12 +220,12 @@ public class Home extends AppCompatActivity implements LocationListener {
 
         if (requestCode == CAMERA_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
-                File f = new File(currentPhotoPath="images/");
+                File f = new File(currentPhotoPath);
                 complaint_image_upload_camera.setImageURI(Uri.fromFile(f));
                 Log.d("tag","Absolute Url image is" + Uri.fromFile(f));
 
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                f = new File(currentPhotoPath);
+               // f = new File(currentPhotoPath);
                 Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
@@ -301,38 +301,42 @@ public class Home extends AppCompatActivity implements LocationListener {
         startActivity(new Intent(this,MapsActivity.class));
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-
-        try {
-            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-
-            tv_Country.setText(addresses.get(0).getCountryName());
-            tv_State.setText(addresses.get(0).getAdminArea());
-            tv_City.setText(addresses.get(0).getLocality());
-            tv_Pin.setText(addresses.get(0).getPostalCode());
-            tv_Address.setText(addresses.get(0).getAddressLine(0));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+    public void btn_current_RetrieveLocation(View view) {
 
     }
 
-    @Override
-    public void onProviderEnabled(String provider) {
+    // @Override
+   // public void onLocationChanged(Location location) {
 
-    }
+      //  try {
+          //  Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+          //  List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
 
-    @Override
-    public void onProviderDisabled(String provider) {
+          //  tv_Country.setText(addresses.get(0).getCountryName());
+          //  tv_State.setText(addresses.get(0).getAdminArea());
+           //  tv_City.setText(addresses.get(0).getLocality());
+           //   tv_Pin.setText(addresses.get(0).getPostalCode());
+           //   tv_Address.setText(addresses.get(0).getAddressLine(0));
 
-    }
+      // } catch (IOException e) {
+      //      e.printStackTrace();
+     //   }
+ //  }
+
+   // @Override
+  //  public void onStatusChanged(String provider, int status, Bundle extras) {
+
+   // }
+
+  //  @Override
+   // public void onProviderEnabled(String provider) {
+
+   // }
+
+   // @Override
+  //  public void onProviderDisabled(String provider) {
+
+  //  }
 }
 
 

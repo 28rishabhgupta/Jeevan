@@ -2,21 +2,40 @@ package com.example.jeevan;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,
         GoogleApiClient.ConnectionCallbacks,
@@ -27,6 +46,7 @@ com.google.android.gms.location.LocationListener{
     private GoogleApiClient mGoogleApiClient;
     private LocationManager mLocationManager;
     private LocationRequest mLocationRequest;
+    private Location mLocation;
     private com.google.android.gms.location.LocationListener locationListener;
     private long UPDATE_INTERVAL = 2000;
     private long FASTEST_INTERVAL = 5000;
@@ -46,15 +66,90 @@ com.google.android.gms.location.LocationListener{
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+
+            mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            checkLocation();
+
+
+
+
+
+
+
+
+
         }
     }
+
+    private boolean checkLocation() {
+        if(!isLocationEnabled()){
+            showAlert();
+        }
+        return isLocationEnabled();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+        .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
+        .setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+           Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+           startActivity(myIntent);
+            }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+
+            }
+        });
+        dialog.show();
+
+    }
+
+
+    private boolean isLocationEnabled() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
     private boolean requestSinglePermission() {
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        // permission is granted, open the camera
+                        isPermission=true;
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        // check for permanent denial of permission
+                        if (response.isPermanentlyDenied()) {
+                            // navigate user to app settings
+                            isPermission=false;
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
 
 
 
 
-
-        return true;
+        return isPermission;
     }
 
 
@@ -70,15 +165,47 @@ com.google.android.gms.location.LocationListener{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if(latLng!=null){
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker Location"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15F));
+        }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+            if( ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=
+                        PackageManager.PERMISSION_GRANTED){
+                return;
+
+        }
+            startLocationUpdates();
+            mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            if(mLocation == null){
+                startLocationUpdates();
+            }
+            else{
+                Toast.makeText(this,"Location not Detected",Toast.LENGTH_SHORT).show();
+            }
+    }
+
+    private void startLocationUpdates() {
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL);
+
+        if( ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=
+                        PackageManager.PERMISSION_GRANTED){
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest,this);
+
+
 
     }
 
@@ -94,6 +221,52 @@ com.google.android.gms.location.LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
+        String msg = "Updated Location:  "+
+                Double.toString(location.getLatitude()) + ","+
+                Double.toString(location.getLatitude());
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
 
+        //using model class LocationHelper...
+        LocationHelper helper = new LocationHelper(
+                location.getLongitude(),
+                location.getLatitude()
+        );
+
+        FirebaseDatabase.getInstance().getReference("Current Location")
+                .setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MapsActivity.this,"Location Saved",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else{
+                    Toast.makeText(MapsActivity.this,"Some Error Occured",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+        SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mGoogleApiClient !=null){
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mGoogleApiClient.isConnected()){
+            mGoogleApiClient.disconnect();
+        }
     }
 }

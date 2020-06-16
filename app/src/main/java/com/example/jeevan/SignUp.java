@@ -87,8 +87,8 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        //startActivity(new Intent(getApplicationContext(),LogIn.class));
-                                       // Toast.makeText(SignUp.this,"Signup Successfully",Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(),LogIn.class));
+                                        Toast.makeText(SignUp.this,"Signup Successfully",Toast.LENGTH_SHORT).show();
                                         //Database information storing..
                                         AddingDatabaseHelper information = new AddingDatabaseHelper(
                                               fullName,
@@ -101,7 +101,7 @@ public class SignUp extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 Toast.makeText(SignUp.this,"Registration completed",Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(getApplicationContext(),LogIn.class));
+                                               // startActivity(new Intent(getApplicationContext(),LogIn.class));
                                             }
                                         });
 
@@ -128,7 +128,7 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public void text_already_have_account_Login(View view) {
-        startActivity(new Intent(getApplicationContext(),LogIn.class));
+   public void text_already_have_account_Login(View view) {
+       startActivity(new Intent(getApplicationContext(),LogIn.class));
     }
 }
