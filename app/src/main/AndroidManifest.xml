@@ -38,7 +38,7 @@
             android:name=".RetrieveMapActivity"
             android:label="@string/title_activity_retrieve_map"></activity>
         <activity android:name=".Chat_botActivity" />
-        <activity android:name=".Home_copy_Activity" />
+
         <activity android:name=".ProfileActivity" />
         <activity android:name=".Home_screen_Activity" />
         <activity

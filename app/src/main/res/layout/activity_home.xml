@@ -19,18 +19,33 @@
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
                 android:src="@drawable/water_wastage_image"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <Button
                 android:id="@+id/complaint_btn_cam_upload"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_below="@+id/complaint_cam_image"
                 android:text="Upload Image"
                 android:background="@drawable/login_with_google"
                 android:textColor="#101010"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_marginLeft="@dimen/_50sdp"/>
+                android:layout_marginLeft="@dimen/_18sdp"
+                android:layout_alignParentStart="true" />
+                <Button
+                    android:id="@+id/complaint_btn_cam_upload_gallery"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:text="Choose image"
+                    android:background="@drawable/login_with_google"
+                    android:textColor="#101010"
+                    android:layout_marginRight="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_alignParentEnd="true"
+                   />
+            </RelativeLayout>
             <ImageView
                 android:id="@+id/complaint_imageview_location"
                 android:layout_width="match_parent"

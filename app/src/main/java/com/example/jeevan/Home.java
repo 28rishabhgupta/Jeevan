@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -51,6 +53,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,64 +65,31 @@ import java.util.UUID;
 public class Home extends AppCompatActivity  {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
-
-    Button complaint_btn_cam_upload;
+    public static final int GALLERY_REQUEST_CODE = 105;
+    ImageView complaint_image_upload_camera;
+    Button complaint_btn_cam_upload,complaint_btn_cam_upload_gallery;
     Button logoutButton,currentLocation;
     FloatingActionButton floatingActionButton;
-
     String currentPhotoPath;
     StorageReference storageReference;
-    TextView tv_Country, tv_State, tv_City, tv_Pin, tv_Address;
-    // LocationManager locationManager;
-    ImageView complaint_image_upload_camera;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //grant permission for location method...
-       // grantPermission();
 
-      // tv_Country = findViewById(R.id.tv_Country);
-        //tv_City = findViewById(R.id.tv_City);
-       // tv_State = findViewById(R.id.tv_State);
-        //tv_Pin = findViewById(R.id.tv_Pin);
-        //tv_Address = findViewById(R.id.tv_Address);
-        floatingActionButton = findViewById(R.id.floatingActionbutton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Chat_botActivity.class));
-            }
-        });
-        //Location enabled or not..
-        //checkLocationIsEnabledOrNot();
-       // getLocation();
-        complaint_btn_cam_upload = findViewById(R.id.complaint_btn_cam_upload);
-       // currentLocation = findViewById(R.id.currentLocation);
         complaint_image_upload_camera = findViewById(R.id.complaint_image_upload_camera);
-        //Firebase Storage reference...
-        storageReference = FirebaseStorage.getInstance().getReference();
-       // currentLocation.setOnClickListener(new View.OnClickListener() {
-           // @Override
-          //  public void onClick(View v) {
-          //      getLocation();
-          //      checkLocationIsEnabledOrNot();
-          //  }
-       // });
-        complaint_btn_cam_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askCameraPermission();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA_REQUEST_CODE);
-            }
-        });
 
+        complaint_btn_cam_upload = findViewById(R.id.complaint_btn_cam_upload);
+
+        complaint_btn_cam_upload_gallery = findViewById(R.id.complaint_btn_cam_upload_gallery);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        floatingActionButton = findViewById(R.id.floatingActionbutton);
 
         logoutButton = findViewById(R.id.logoutButton);
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,125 +98,127 @@ public class Home extends AppCompatActivity  {
                 startActivity(logoutintent);
             }
         });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Chat_botActivity.class));
+            }
+        });
+
+        complaint_btn_cam_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askCameraPermission();
+
+            }
+        });
+        complaint_btn_cam_upload_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+            }
+        });
     }
-
-
-    //private void getLocation() {
-      //  try {
-         //   locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-         //   if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-             //   return;
-           // }
-         //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 5,(LocationListener)this);
-       // }catch (SecurityException e){
-         //   e.printStackTrace();
-
-       /// }
-   // }
-
-   // private void checkLocationIsEnabledOrNot() {
-        //this method will redirect us to Location Settingd..
-       // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-      //  boolean gpsEnabled = false;
-      //  boolean networkEnabled = false;
-       // try{
-      //      gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-       // }catch (Exception e){
-       //     e.printStackTrace();
-     //   }
-      //  try{
-      //      networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-      //  }catch (Exception e){
-        //    e.printStackTrace();
-       // }
-      //  if(!gpsEnabled && !networkEnabled){
-        //    new AlertDialog.Builder(Home.this)
-              //      .setTitle("Enable Gps Service")
-                   // .setCancelable(false)
-                  //  .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
-                   //     @Override
-                   //     public void onClick(DialogInterface dialog, int which) {
-                       //     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                     //   }
-                  //  }).setNegativeButton("Cancel",null)
-                 //   .show();
-     //   }
-  //  }
-
-  //  private void grantPermission() {
-      //  if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
-          //  && ActivityCompat.checkSelfPermission(getApplicationContext(),
-            //    Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-          //  ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-          //  Manifest.permission.ACCESS_COARSE_LOCATION},100);
-      ///  }
-  //  }
-
     private void askCameraPermission() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        if(ContextCompat.checkSelfPermission(Home.this, Manifest.permission.CAMERA) +
+                ContextCompat.checkSelfPermission(Home.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+            //when Permission not granted...
+            if(ActivityCompat.shouldShowRequestPermissionRationale(Home.this,Manifest.permission.CAMERA)
+            || ActivityCompat.shouldShowRequestPermissionRationale(Home.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+                //Creating Alertdialog...
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        Home.this);
+                builder.setTitle("Grant Permissions");
+                builder.setMessage("Camera, Read Storage");
+                builder.setPositiveButton("Allow", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(
+                                Home.this,
+                                new String[] {
+                                        Manifest.permission.CAMERA,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE
+                                },CAMERA_PERM_CODE
+                        );
+
+
+                    }
+                });
+                builder.setNegativeButton("Deny",null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }else{
+                ActivityCompat.requestPermissions(
+                       Home.this,
+                        new String[] {
+                               Manifest.permission.CAMERA,
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                       },CAMERA_PERM_CODE
+
+               );
+
+           }
+
         }
         else{
-            dispatchTakePictureIntent();
+            //when Permissions are already granted...
+           dispatchTakePictureIntent();
+            //opencamera();
         }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==CAMERA_PERM_CODE){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-                dispatchTakePictureIntent();
-            }
-            else{
-                Toast.makeText(Home.this,"Camera permission required",Toast.LENGTH_SHORT).show();
-            }
-        }
+
     }
 
 
-
-
     @Override
-    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
-         super.onActivityResult(requestCode, resultCode, data);
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST_CODE) {
-            if(resultCode == Activity.RESULT_OK){
-                File f = new File(currentPhotoPath);
-                complaint_image_upload_camera.setImageURI(Uri.fromFile(f));
-                Log.d("tag","Absolute Url image is" + Uri.fromFile(f));
+            if (resultCode == Activity.RESULT_OK) {
+               File f = new File(currentPhotoPath);
+               complaint_image_upload_camera.setImageURI(Uri.fromFile(f));
+               Log.d("tag","Absolute image of url is:" + Uri.fromFile(f));
 
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-               // f = new File(currentPhotoPath);
                 Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
-                uploadImageToFirebase(f.getName(),contentUri);
+
+                uploadImageFirebase(f.getName(),contentUri);
             }
-
-
         }
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri contentUri = data.getData();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date(0));
+               String imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
+               complaint_image_upload_camera.setImageURI(contentUri);
+
+                uploadImageFirebase(imageFileName,contentUri);
+            }
+        }
+
+
+
     }
 
-    private void uploadImageToFirebase(String name, Uri contentUri) {
-        final StorageReference image = storageReference.child("images/" + name);
-        image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+    private void uploadImageFirebase(String name, Uri contentUri) {
+        final StorageReference images = storageReference.child("IMAGES/" + name);
+        images.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                 image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                       Log.d("tag","onSuccess: Uploaded image url is"+ uri.toString());
+                        Log.d("tag","on Success Uploaded image url is:" + uri.toString());
                     }
+
                 });
+                Toast.makeText(Home.this, "Image Successfully uploaded", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -255,13 +227,22 @@ public class Home extends AppCompatActivity  {
             }
         });
     }
-    //images/image.jpeg
+
+
+
+
+    private String getFileExt(Uri contentUri) {
+        ContentResolver c = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(c.getType(contentUri));
+    }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date(0));
         String imageFileName = "JPEG_" + timeStamp + "_";
-      //  File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+       // File storageDire = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -274,6 +255,7 @@ public class Home extends AppCompatActivity  {
     }
 
 
+   // static final int REQUEST_TAKE_PHOTO = 1;
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -297,6 +279,16 @@ public class Home extends AppCompatActivity  {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length > 0 && grantResults[0] + grantResults[1]==PackageManager.PERMISSION_GRANTED){
+            dispatchTakePictureIntent();
+        }else{
+            Toast.makeText(Home.this,"Camera is Required",Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void btn_current_Location(View view) {
         startActivity(new Intent(this,MapsActivity.class));
     }
@@ -304,39 +296,6 @@ public class Home extends AppCompatActivity  {
     public void btn_current_RetrieveLocation(View view) {
 
     }
-
-    // @Override
-   // public void onLocationChanged(Location location) {
-
-      //  try {
-          //  Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-          //  List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-
-          //  tv_Country.setText(addresses.get(0).getCountryName());
-          //  tv_State.setText(addresses.get(0).getAdminArea());
-           //  tv_City.setText(addresses.get(0).getLocality());
-           //   tv_Pin.setText(addresses.get(0).getPostalCode());
-           //   tv_Address.setText(addresses.get(0).getAddressLine(0));
-
-      // } catch (IOException e) {
-      //      e.printStackTrace();
-     //   }
- //  }
-
-   // @Override
-  //  public void onStatusChanged(String provider, int status, Bundle extras) {
-
-   // }
-
-  //  @Override
-   // public void onProviderEnabled(String provider) {
-
-   // }
-
-   // @Override
-  //  public void onProviderDisabled(String provider) {
-
-  //  }
 }
 
 
