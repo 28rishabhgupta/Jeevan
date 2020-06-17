@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_190sdp"
                 android:scaleType="fitXY"
+                android:layout_margin="@dimen/_3sdp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/water_wastage_image"/>
             <RelativeLayout
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_190sdp"
                 android:scaleType="fitXY"
+                android:layout_margin="@dimen/_3sdp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/gps_image_3"/>
 
@@ -138,10 +140,10 @@
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
+        android:id="@+id/bottom_navigation_view_Home_Activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/colorAccent"
         app:itemIconTint="@drawable/icon_color_state_bottom_navbar"
         app:itemTextColor="@drawable/icon_color_state_bottom_navbar"
         android:layout_alignParentBottom="true"

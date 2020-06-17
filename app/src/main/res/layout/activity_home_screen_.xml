@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home_screen_Activity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home need to develope"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_screen_activity_Recycler_View"
+            android:scrollbars="vertical">
+
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
+    </LinearLayout>
+   <androidx.appcompat.widget.Toolbar
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/colorAccent"
+       app:titleTextColor="@color/white">
+       <de.hdodenhof.circleimageview.CircleImageView
+
+           android:id="@+id/profile_image"
+           android:layout_width="@dimen/_40sdp"
+           android:layout_height="@dimen/_30sdp"
+           android:layout_marginTop="@dimen/_5sdp"
+           android:src="@drawable/jeevan_icon_toolbar"
+           app:civ_border_width="2dp"
+           app:civ_border_color="#FFFFFF"/>
+
+       <TextView
+           android:layout_width="fill_parent"
+           android:layout_height="match_parent"
+           android:text="Jeevan"
+           android:paddingStart="@dimen/_5sdp"
+           android:id="@+id/myTitle"
+           android:textColor="#FFFFFF"
+           android:ems="10"
+           android:textSize="20sp"
+           style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+           android:gravity="center_vertical"/>
+   </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
+        android:id="@+id/bottom_navigation_view_Home_Screen_Activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/colorAccent"
         app:itemIconTint="@drawable/icon_color_state_bottom_navbar"
         app:itemTextColor="@drawable/icon_color_state_bottom_navbar"
         android:layout_alignParentBottom="true"

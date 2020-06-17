@@ -72,11 +72,36 @@ public class Home extends AppCompatActivity  {
     FloatingActionButton floatingActionButton;
     String currentPhotoPath;
     StorageReference storageReference;
+    BottomNavigationView bottom_navigation_view_Home_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        bottom_navigation_view_Home_Activity = findViewById(R.id.bottom_navigation_view_Home_Activity);
+
+        bottom_navigation_view_Home_Activity.setSelectedItemId(R.id.action_lodge_complain);
+        bottom_navigation_view_Home_Activity.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                switch(menuItem.getItemId()){
+                    case R.id.action_home:
+                        startActivity(new Intent(getApplicationContext(),Home_screen_Activity.class));
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.action_lodge_complain:
+
+
+                    case R.id.action_profile:
+                        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                }
+            }
+        });
 
         complaint_image_upload_camera = findViewById(R.id.complaint_image_upload_camera);
 

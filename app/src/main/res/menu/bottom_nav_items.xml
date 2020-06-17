@@ -3,19 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_home"
-        android:enabled="true"
         android:icon="@drawable/home_icon"
         android:title="Home"
-        app:showAsAction="ifRoom"/>
+       />
     <item
         android:id="@+id/action_lodge_complain"
         android:icon="@drawable/lodge_complain"
-        android:title="LodgeComplaint"
-        app:showAsAction="ifRoom"/>
+        android:title="LodgeComplaint" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/profile_icon"
         android:title="Profile"
-        app:showAsAction="ifRoom"/>
+       />
 
 </menu>

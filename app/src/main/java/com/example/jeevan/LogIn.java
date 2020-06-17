@@ -42,7 +42,7 @@ public class LogIn extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
         {
             //later changed to HomeActivity.class now testing****I**with Home_copy_Activity.class
-            startActivity(new Intent(this,Home.class));
+            startActivity(new Intent(this,Home_screen_Activity.class));
             this.finish();
         }
         //Casting objects into xml
